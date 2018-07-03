@@ -53,7 +53,7 @@ namespace postgrepsToSql
                 {
                     if (!isShown)
                     {
-                        for (int i = 0; i < dr.FieldCount; ++i)
+                        for (var i = 0; i < dr.FieldCount; ++i)
                         {
                             richTextBox1.Text += dr.GetName(i) + "\t";
                         }
@@ -61,7 +61,7 @@ namespace postgrepsToSql
                         isShown = true;
                     }
                     
-                    for (int i = 0; i < dr.FieldCount; ++i)
+                    for (var i = 0; i < dr.FieldCount; ++i)
                     {
                         richTextBox1.Text += dr[i] + "\t";
                     }
