@@ -42,9 +42,13 @@ namespace postgrepsToSql
                 richTextBox1.Text += "Connection is successfull\r\n";
 
                 var queryStr = "SELECT * FROM public.\"Customer\"";
+                var queryStr2 = "SELECT column_name, data_type" +
+                                " FROM information_schema.columns" +
+                                " WHERE table_name = 'table_name'";
+
                 richTextBox1.Text += queryStr + "\r\n";
 
-                var cmd = new NpgsqlCommand(queryStr, connection);
+                var cmd = new NpgsqlCommand(queryStr2, connection);
                 var dr = cmd.ExecuteReader();
 
                 bool isShown = false;
@@ -65,11 +69,14 @@ namespace postgrepsToSql
                     {
                         richTextBox1.Text += dr[i] + "\t";
                     }
-                    
+
                     richTextBox1.Text += "\r\n";
                 }
 
             }
+
+            // connect to sql sevrver
+            string connectionStrSql = "Data Source = ; Initial Catalog = STAJDB; Integrated Security = True" ;
 
         }
     }
