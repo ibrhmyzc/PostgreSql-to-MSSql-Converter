@@ -174,18 +174,31 @@ namespace postgrepsToSql
                 }
                 CreateTable += ");";
                 richTextBox1.Text += CreateTable + " is run\r\n";
-               // var cmd = new SqlCommand(CreateTable, connection);
+                var cmd = new SqlCommand(CreateTable, connection);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    richTextBox1.Text += "Table" + _tableName + " is already created\r\n";
+                }
+                
                 connection.Dispose();
             }
 
-
+            SqlConnection connection2 = new SqlConnection(connectionStrSql);
+            connection2.Open();
             // add data
             for (int i = 0; i < _datas.Count / _dataTypes.Count; ++i)
             {
                 string insertData = "INSERT INTO " + _tableName + "(";
                 for (int j = 0; j < _dataTypes.Count; ++j)
                 {
-                    insertData += _columnNames[j] + ", ";
+                    if(j + 1 != _dataTypes.Count)
+                        insertData += _columnNames[j] + ", ";
+                    else
+                        insertData += _columnNames[j] ;
                 }
 
                 insertData += ") VALUES (";
@@ -193,20 +206,29 @@ namespace postgrepsToSql
                 {
                     if ((string) _dataTypes[j] == "text")
                     {
-                        insertData += "'" + _datas[i * 2 + j] + "',";
+                        if(j + 1 != _dataTypes.Count)
+                            insertData += "'" + _datas[i * 2 + j] + "',";
+                        else
+                            insertData += "'" + _datas[i * 2 + j] + "'";
                     }
                     else
                     {
-                        insertData +=_datas[i * 2 + j] + ",";
+                        if (j + 1 != _dataTypes.Count)
+                            insertData +=_datas[i * 2 + j] + ",";
+                        else
+                            insertData += _datas[i * 2 + j];
                     }
                 }
 
-                insertData += ")";
+                insertData += ");";
 
                 richTextBox1.Text += insertData + "\r\n";
-                SqlConnection connection = new SqlConnection(connectionStrSql);
-                //var cmd = new SqlCommand(insertData, connection);
+               
+                
+                var cmd = new SqlCommand(insertData, connection2);
+                cmd.ExecuteNonQuery();
             }
+            connection2.Dispose();
         }
     }
 }
