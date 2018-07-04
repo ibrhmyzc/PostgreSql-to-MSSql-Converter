@@ -28,33 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelServer = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.textBoxServer = new System.Windows.Forms.TextBox();
+            this.textBoxPort = new System.Windows.Forms.TextBox();
+            this.textBoxDatabase = new System.Windows.Forms.TextBox();
+            this.textBoxUserId = new System.Windows.Forms.TextBox();
+            this.textBoxPassword = new System.Windows.Forms.TextBox();
+            this.buttonExecute = new System.Windows.Forms.Button();
+            this.richTextBoxProgres = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.textBoxTargetServer = new System.Windows.Forms.TextBox();
+            this.textBoxTargetDatabase = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // label1
+            // labelServer
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(40, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Server";
+            this.labelServer.AutoSize = true;
+            this.labelServer.Location = new System.Drawing.Point(40, 27);
+            this.labelServer.Name = "labelServer";
+            this.labelServer.Size = new System.Drawing.Size(38, 13);
+            this.labelServer.TabIndex = 0;
+            this.labelServer.Text = "Server";
             // 
             // label2
             // 
@@ -92,64 +92,64 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "Password";
             // 
-            // textBox1
+            // textBoxServer
             // 
-            this.textBox1.Location = new System.Drawing.Point(99, 24);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 6;
-            this.textBox1.Text = "127.0.0.1";
+            this.textBoxServer.Location = new System.Drawing.Point(99, 24);
+            this.textBoxServer.Name = "textBoxServer";
+            this.textBoxServer.Size = new System.Drawing.Size(100, 20);
+            this.textBoxServer.TabIndex = 6;
+            this.textBoxServer.Text = "127.0.0.1";
             // 
-            // textBox2
+            // textBoxPort
             // 
-            this.textBox2.Location = new System.Drawing.Point(99, 56);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 7;
-            this.textBox2.Text = "5432";
+            this.textBoxPort.Location = new System.Drawing.Point(99, 56);
+            this.textBoxPort.Name = "textBoxPort";
+            this.textBoxPort.Size = new System.Drawing.Size(100, 20);
+            this.textBoxPort.TabIndex = 7;
+            this.textBoxPort.Text = "5432";
             // 
-            // textBox3
+            // textBoxDatabase
             // 
-            this.textBox3.Location = new System.Drawing.Point(99, 86);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 8;
-            this.textBox3.Text = "postgres";
+            this.textBoxDatabase.Location = new System.Drawing.Point(99, 86);
+            this.textBoxDatabase.Name = "textBoxDatabase";
+            this.textBoxDatabase.Size = new System.Drawing.Size(100, 20);
+            this.textBoxDatabase.TabIndex = 8;
+            this.textBoxDatabase.Text = "postgres";
             // 
-            // textBox4
+            // textBoxUserId
             // 
-            this.textBox4.Location = new System.Drawing.Point(99, 116);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 9;
-            this.textBox4.Text = "postgres";
+            this.textBoxUserId.Location = new System.Drawing.Point(99, 116);
+            this.textBoxUserId.Name = "textBoxUserId";
+            this.textBoxUserId.Size = new System.Drawing.Size(100, 20);
+            this.textBoxUserId.TabIndex = 9;
+            this.textBoxUserId.Text = "postgres";
             // 
-            // textBox5
+            // textBoxPassword
             // 
-            this.textBox5.Location = new System.Drawing.Point(99, 146);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.PasswordChar = '*';
-            this.textBox5.Size = new System.Drawing.Size(100, 20);
-            this.textBox5.TabIndex = 10;
-            this.textBox5.Text = "Logo1234";
+            this.textBoxPassword.Location = new System.Drawing.Point(99, 146);
+            this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.PasswordChar = '*';
+            this.textBoxPassword.Size = new System.Drawing.Size(100, 20);
+            this.textBoxPassword.TabIndex = 10;
+            this.textBoxPassword.Text = "Logo1234";
             // 
-            // button1
+            // buttonExecute
             // 
-            this.button1.Location = new System.Drawing.Point(43, 340);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(156, 49);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Go";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonExecute.Location = new System.Drawing.Point(43, 340);
+            this.buttonExecute.Name = "buttonExecute";
+            this.buttonExecute.Size = new System.Drawing.Size(156, 49);
+            this.buttonExecute.TabIndex = 12;
+            this.buttonExecute.Text = "Go";
+            this.buttonExecute.UseVisualStyleBackColor = true;
+            this.buttonExecute.Click += new System.EventHandler(this.button1_Click);
             // 
-            // richTextBox1
+            // richTextBoxProgres
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(244, 24);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(489, 365);
-            this.richTextBox1.TabIndex = 13;
-            this.richTextBox1.Text = "";
+            this.richTextBoxProgres.Location = new System.Drawing.Point(244, 24);
+            this.richTextBoxProgres.Name = "richTextBoxProgres";
+            this.richTextBoxProgres.Size = new System.Drawing.Size(489, 365);
+            this.richTextBoxProgres.TabIndex = 13;
+            this.richTextBoxProgres.Text = "";
             // 
             // label6
             // 
@@ -169,21 +169,21 @@
             this.label7.TabIndex = 15;
             this.label7.Text = "DB Name";
             // 
-            // textBox6
+            // textBoxTargetServer
             // 
-            this.textBox6.Location = new System.Drawing.Point(99, 249);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 20);
-            this.textBox6.TabIndex = 17;
-            this.textBox6.Text = ".\\SQLExpress";
+            this.textBoxTargetServer.Location = new System.Drawing.Point(99, 249);
+            this.textBoxTargetServer.Name = "textBoxTargetServer";
+            this.textBoxTargetServer.Size = new System.Drawing.Size(100, 20);
+            this.textBoxTargetServer.TabIndex = 17;
+            this.textBoxTargetServer.Text = "GEBZEHAVUZ11";
             // 
-            // textBox7
+            // textBoxTargetDatabase
             // 
-            this.textBox7.Location = new System.Drawing.Point(99, 289);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(100, 20);
-            this.textBox7.TabIndex = 18;
-            this.textBox7.Text = "STAJDB";
+            this.textBoxTargetDatabase.Location = new System.Drawing.Point(99, 289);
+            this.textBoxTargetDatabase.Name = "textBoxTargetDatabase";
+            this.textBoxTargetDatabase.Size = new System.Drawing.Size(100, 20);
+            this.textBoxTargetDatabase.TabIndex = 18;
+            this.textBoxTargetDatabase.Text = "STAJDB";
             // 
             // label8
             // 
@@ -200,22 +200,22 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.textBox7);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.textBoxTargetDatabase);
+            this.Controls.Add(this.textBoxTargetServer);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.richTextBoxProgres);
+            this.Controls.Add(this.buttonExecute);
+            this.Controls.Add(this.textBoxPassword);
+            this.Controls.Add(this.textBoxUserId);
+            this.Controls.Add(this.textBoxDatabase);
+            this.Controls.Add(this.textBoxPort);
+            this.Controls.Add(this.textBoxServer);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelServer);
             this.Name = "Form1";
             this.Text = "Postgre to Sql";
             this.ResumeLayout(false);
@@ -225,22 +225,22 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelServer;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.TextBox textBoxServer;
+        private System.Windows.Forms.TextBox textBoxPort;
+        private System.Windows.Forms.TextBox textBoxDatabase;
+        private System.Windows.Forms.TextBox textBoxUserId;
+        private System.Windows.Forms.TextBox textBoxPassword;
+        private System.Windows.Forms.Button buttonExecute;
+        private System.Windows.Forms.RichTextBox richTextBoxProgres;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox textBoxTargetServer;
+        private System.Windows.Forms.TextBox textBoxTargetDatabase;
         private System.Windows.Forms.Label label8;
     }
 }

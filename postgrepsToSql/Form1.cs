@@ -28,11 +28,11 @@ namespace postgrepsToSql
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string sw = textBox1.Text;
-            string port = textBox2.Text;
-            string user = textBox4.Text;
-            string pass = textBox5.Text;
-            string db = textBox3.Text;
+            string sw = textBoxServer.Text;
+            string port = textBoxPort.Text;
+            string user = textBoxUserId.Text;
+            string pass = textBoxPassword.Text;
+            string db = textBoxDatabase.Text;
 
             string connectionStr = String.Format("Server=" + sw +
                                                  ";Port=" + port +
@@ -41,7 +41,7 @@ namespace postgrepsToSql
                                                  ";Password=" + pass +
                                                  ";Integrated Security=true;"
                                                  );
-            richTextBox1.Text += connectionStr + "\r\n";
+            richTextBoxProgres.Text += connectionStr + "\r\n\r\n";
 
             // reads all data
             ReadDb(connectionStr);
@@ -62,12 +62,12 @@ namespace postgrepsToSql
             using (var connection = new NpgsqlConnection(connectionStr))
             {
                 connection.Open();
-                richTextBox1.Text += "Connection is successfull\r\n";
+                richTextBoxProgres.Text += "Connection is successfull\r\n";
 
                 var queryStr = "SELECT * FROM public.\"Customer\"";
 
 
-                richTextBox1.Text += queryStr + "\r\n";
+                richTextBoxProgres.Text += queryStr + "\r\n";
 
                 var cmd = new NpgsqlCommand(queryStr, connection);
                 var dr = cmd.ExecuteReader();
@@ -80,20 +80,20 @@ namespace postgrepsToSql
                     {
                         for (var i = 0; i < dr.FieldCount; ++i)
                         {
-                            richTextBox1.Text += dr.GetName(i) + "\t";
+                            richTextBoxProgres.Text += dr.GetName(i) + "\t";
                             _columnNames.Add(dr.GetName(i));
                         }
-                        richTextBox1.Text += "\r\n";
+                        richTextBoxProgres.Text += "\r\n";
                         isShown = true;
                     }
 
                     for (var i = 0; i < dr.FieldCount; ++i)
                     {
                         _datas.Add(dr[i]);
-                        richTextBox1.Text += dr[i] + "\t";
+                        richTextBoxProgres.Text += dr[i] + "\t";
                     }
 
-                    richTextBox1.Text += "\r\n";
+                    richTextBoxProgres.Text += "\r\n";
                 }
                 connection.Dispose();
             }
@@ -105,9 +105,9 @@ namespace postgrepsToSql
             using (var connection = new NpgsqlConnection(connectionStr))
             {
                 connection.Open();
-                richTextBox1.Text += "Getting table name...\r\n";
+                richTextBoxProgres.Text += "\r\nGetting table name...\r\n";
                 var queryTableName = "SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'";
-                richTextBox1.Text += queryTableName + "\r\n";
+                richTextBoxProgres.Text += queryTableName + "\r\n";
 
                 var cmd = new NpgsqlCommand(queryTableName, connection);
                 var dr = cmd.ExecuteReader();
@@ -115,7 +115,7 @@ namespace postgrepsToSql
                 while (dr.Read())
                 {
                     _tableName = dr[0].ToString();
-                    richTextBox1.Text += "Table name=" +  _tableName +  "\r\n";
+                    richTextBoxProgres.Text += "Table name=" +  _tableName + "\r\n\r\n";
                 }
                 connection.Dispose();
             }
@@ -134,8 +134,8 @@ namespace postgrepsToSql
                 using (var connection = new NpgsqlConnection(connectionStr))
                 {
                     connection.Open();
-                    richTextBox1.Text += "Getting data types...\r\n"; 
-                    richTextBox1.Text += queryDataType + "\r\n";
+                    richTextBoxProgres.Text += "Getting data types...\r\n\r\n"; 
+                    richTextBoxProgres.Text += queryDataType + "\r\n";
 
                     var cmd = new NpgsqlCommand(queryDataType, connection);
                     var dr = cmd.ExecuteReader();
@@ -143,7 +143,7 @@ namespace postgrepsToSql
                     while (dr.Read())
                     {
                         _dataTypes.Add(dr[0].ToString());
-                        richTextBox1.Text += "Data type=" + dr[0] + "\r\n";
+                        richTextBoxProgres.Text += "Data type=" + dr[0] + "\r\n";
                     }
                     connection.Dispose();
                 }
@@ -152,19 +152,19 @@ namespace postgrepsToSql
 
         private void Migrate()
         {
-            string server = textBox6.Text;
-            string db = textBox7.Text;
+            string server = textBoxTargetServer.Text;
+            string db = textBoxTargetDatabase.Text;
 
             // connect to sql sevrver
             string connectionStrSql = "Data Source=" + server + 
                                       ";Initial Catalog=" + db + 
                                       ";Integrated Security=SSPI";
-            richTextBox1.Text += connectionStrSql + "\r\n";
+            richTextBoxProgres.Text += connectionStrSql + "\r\n\r\n";
             
             using (SqlConnection connection = new SqlConnection(connectionStrSql))
             {
                 connection.Open();
-                richTextBox1.Text += "migration has started" + "\t\n";
+                richTextBoxProgres.Text += "migration has started" + "\r\n\r\n";
 
                 // first create a table
                 var CreateTable = "CREATE TABLE " + _tableName + "(";
@@ -173,7 +173,7 @@ namespace postgrepsToSql
                     CreateTable += _columnNames[i] + " " + _dataTypes[i] + ", ";
                 }
                 CreateTable += ");";
-                richTextBox1.Text += CreateTable + " is run\r\n";
+                richTextBoxProgres.Text += CreateTable + " is run\r\n\r\n";
                 var cmd = new SqlCommand(CreateTable, connection);
                 try
                 {
@@ -181,7 +181,7 @@ namespace postgrepsToSql
                 }
                 catch (Exception ex)
                 {
-                    richTextBox1.Text += "Table" + _tableName + " is already created\r\n";
+                    richTextBoxProgres.Text += "***Table" + _tableName + " is already created\r\n\r\n";
                 }
                 
                 connection.Dispose();
@@ -222,13 +222,14 @@ namespace postgrepsToSql
 
                 insertData += ");";
 
-                richTextBox1.Text += insertData + "\r\n";
+                richTextBoxProgres.Text += insertData + "\r\n\r\n";
                
                 
                 var cmd = new SqlCommand(insertData, connection2);
                 cmd.ExecuteNonQuery();
             }
             connection2.Dispose();
+            richTextBoxProgres.Text += "Migration finished\r\n";
         }
     }
 }
