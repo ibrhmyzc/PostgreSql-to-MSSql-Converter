@@ -101,8 +101,23 @@ namespace postgrepsToSql
 
         private void GetTableName(string connectionStr)
         {
-            for (int i = 0; i < _datas.Count; ++i)
-                richTextBox1.Text += _datas[i] + "\r\n";
+            using (var connection = new NpgsqlConnection(connectionStr))
+            {
+                connection.Open();
+                richTextBox1.Text += "Getting table name...\r\n";
+                var queryTableName = "SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'";
+                richTextBox1.Text += queryTableName + "\r\n";
+
+                var cmd = new NpgsqlCommand(queryTableName, connection);
+                var dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    _tableName = dr[0].ToString();
+                    richTextBox1.Text += "Table name=" +  _tableName +  "\r\n";
+                }
+                connection.Dispose();
+            }
         }
 
         private void GetDataTypes(string connectionStr)
@@ -112,8 +127,25 @@ namespace postgrepsToSql
                 var queryDataType = "SELECT data_type" +
                                     " FROM information_schema.columns   " +
                                     " WHERE table_schema = 'public'" +
-                                    " AND table_name =" + "'" + "Customer" + "'" +
+                                    " AND table_name =" + "'" + _tableName + "'" +
                                     " AND column_name =" + "'" + _columnNames[i] + "'";
+
+                using (var connection = new NpgsqlConnection(connectionStr))
+                {
+                    connection.Open();
+                    richTextBox1.Text += "Getting data types...\r\n"; 
+                    richTextBox1.Text += queryDataType + "\r\n";
+
+                    var cmd = new NpgsqlCommand(queryDataType, connection);
+                    var dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        _dataTypes.Add(dr[0].ToString());
+                        richTextBox1.Text += "Data type=" + dr[0] + "\r\n";
+                    }
+                    connection.Dispose();
+                }
             }
         }
 
