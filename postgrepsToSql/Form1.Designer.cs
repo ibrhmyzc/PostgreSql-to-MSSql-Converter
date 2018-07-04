@@ -175,7 +175,7 @@
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(100, 20);
             this.textBox6.TabIndex = 17;
-            this.textBox6.Text = "jag-fria\\SQLExpress";
+            this.textBox6.Text = ".\\SQLExpress";
             // 
             // textBox7
             // 

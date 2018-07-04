@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -151,8 +152,61 @@ namespace postgrepsToSql
 
         private void Migrate()
         {
+            string server = textBox6.Text;
+            string db = textBox7.Text;
+
             // connect to sql sevrver
-            string connectionStrSql = "Data Source = ; Initial Catalog = STAJDB; Integrated Security = True";
+            string connectionStrSql = "Data Source=" + server + 
+                                      ";Initial Catalog=" + db + 
+                                      ";Integrated Security=SSPI";
+            richTextBox1.Text += connectionStrSql + "\r\n";
+            
+            using (SqlConnection connection = new SqlConnection(connectionStrSql))
+            {
+                connection.Open();
+                richTextBox1.Text += "migration has started" + "\t\n";
+
+                // first create a table
+                var CreateTable = "CREATE TABLE " + _tableName + "(";
+                for (int i = 0; i < _dataTypes.Count; ++i)
+                {
+                    CreateTable += _columnNames[i] + " " + _dataTypes[i] + ", ";
+                }
+                CreateTable += ");";
+                richTextBox1.Text += CreateTable + " is run\r\n";
+               // var cmd = new SqlCommand(CreateTable, connection);
+                connection.Dispose();
+            }
+
+
+            // add data
+            for (int i = 0; i < _datas.Count / _dataTypes.Count; ++i)
+            {
+                string insertData = "INSERT INTO " + _tableName + "(";
+                for (int j = 0; j < _dataTypes.Count; ++j)
+                {
+                    insertData += _columnNames[j] + ", ";
+                }
+
+                insertData += ") VALUES (";
+                for (int j = 0; j < _dataTypes.Count; ++j)
+                {
+                    if ((string) _dataTypes[j] == "text")
+                    {
+                        insertData += "'" + _datas[i * 2 + j] + "',";
+                    }
+                    else
+                    {
+                        insertData +=_datas[i * 2 + j] + ",";
+                    }
+                }
+
+                insertData += ")";
+
+                richTextBox1.Text += insertData + "\r\n";
+                SqlConnection connection = new SqlConnection(connectionStrSql);
+                //var cmd = new SqlCommand(insertData, connection);
+            }
         }
     }
 }
