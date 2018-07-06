@@ -49,9 +49,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBoxTargetPort = new System.Windows.Forms.TextBox();
+            this.textBoxTargetUserId = new System.Windows.Forms.TextBox();
+            this.textBoxTargetPassword = new System.Windows.Forms.TextBox();
             this.comboBoxSource = new System.Windows.Forms.ComboBox();
             this.comboBoxTarget = new System.Windows.Forms.ComboBox();
             this.checkBoxDetailedLog = new System.Windows.Forms.CheckBox();
@@ -148,11 +148,11 @@
             this.buttonExecute.BackColor = System.Drawing.SystemColors.Highlight;
             this.buttonExecute.Location = new System.Drawing.Point(315, 373);
             this.buttonExecute.Name = "buttonExecute";
-            this.buttonExecute.Size = new System.Drawing.Size(100, 53);
+            this.buttonExecute.Size = new System.Drawing.Size(100, 39);
             this.buttonExecute.TabIndex = 12;
             this.buttonExecute.Text = "Go";
             this.buttonExecute.UseVisualStyleBackColor = false;
-            this.buttonExecute.Click += new System.EventHandler(this.button1_Click);
+            this.buttonExecute.Click += new System.EventHandler(this.Button1_Click);
             // 
             // richTextBoxProgress
             // 
@@ -241,26 +241,26 @@
             this.label11.TabIndex = 23;
             this.label11.Text = "Password";
             // 
-            // textBox1
+            // textBoxTargetPort
             // 
-            this.textBox1.Location = new System.Drawing.Point(315, 80);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 24;
+            this.textBoxTargetPort.Location = new System.Drawing.Point(315, 80);
+            this.textBoxTargetPort.Name = "textBoxTargetPort";
+            this.textBoxTargetPort.Size = new System.Drawing.Size(100, 20);
+            this.textBoxTargetPort.TabIndex = 24;
             // 
-            // textBox2
+            // textBoxTargetUserId
             // 
-            this.textBox2.Location = new System.Drawing.Point(315, 143);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 25;
+            this.textBoxTargetUserId.Location = new System.Drawing.Point(315, 143);
+            this.textBoxTargetUserId.Name = "textBoxTargetUserId";
+            this.textBoxTargetUserId.Size = new System.Drawing.Size(100, 20);
+            this.textBoxTargetUserId.TabIndex = 25;
             // 
-            // textBox3
+            // textBoxTargetPassword
             // 
-            this.textBox3.Location = new System.Drawing.Point(315, 173);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 26;
+            this.textBoxTargetPassword.Location = new System.Drawing.Point(315, 173);
+            this.textBoxTargetPassword.Name = "textBoxTargetPassword";
+            this.textBoxTargetPassword.Size = new System.Drawing.Size(100, 20);
+            this.textBoxTargetPassword.TabIndex = 26;
             // 
             // comboBoxSource
             // 
@@ -274,7 +274,6 @@
             this.comboBoxSource.Name = "comboBoxSource";
             this.comboBoxSource.Size = new System.Drawing.Size(101, 21);
             this.comboBoxSource.TabIndex = 27;
-            this.comboBoxSource.SelectedIndex = 0;
             this.comboBoxSource.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // comboBoxTarget
@@ -285,34 +284,34 @@
             "MSSql",
             "Sql",
             "MySql"});
-            this.comboBoxTarget.SelectedIndex = 1;
             this.comboBoxTarget.Location = new System.Drawing.Point(315, 12);
             this.comboBoxTarget.Name = "comboBoxTarget";
             this.comboBoxTarget.Size = new System.Drawing.Size(100, 21);
             this.comboBoxTarget.TabIndex = 28;
+            this.comboBoxTarget.SelectedIndexChanged += new System.EventHandler(this.comboBoxTarget_SelectedIndexChanged);
             // 
             // checkBoxDetailedLog
             // 
             this.checkBoxDetailedLog.AutoSize = true;
             this.checkBoxDetailedLog.Location = new System.Drawing.Point(43, 382);
             this.checkBoxDetailedLog.Name = "checkBoxDetailedLog";
-            this.checkBoxDetailedLog.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxDetailedLog.Size = new System.Drawing.Size(220, 30);
             this.checkBoxDetailedLog.TabIndex = 29;
+            this.checkBoxDetailedLog.Text = "Would you like to see detailed logs?\r\nIt will significantly slow down the progres" +
+    "s";
             this.checkBoxDetailedLog.UseVisualStyleBackColor = true;
-            this.checkBoxDetailedLog.Text =
-                "Would you like to see detailed logs?\r\nIt will significantly slow down the progress";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(499, 448);
+            this.ClientSize = new System.Drawing.Size(463, 430);
             this.Controls.Add(this.checkBoxDetailedLog);
             this.Controls.Add(this.comboBoxTarget);
             this.Controls.Add(this.comboBoxSource);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxTargetPassword);
+            this.Controls.Add(this.textBoxTargetUserId);
+            this.Controls.Add(this.textBoxTargetPort);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -364,9 +363,9 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBoxTargetPort;
+        private System.Windows.Forms.TextBox textBoxTargetUserId;
+        private System.Windows.Forms.TextBox textBoxTargetPassword;
         private System.Windows.Forms.ComboBox comboBoxSource;
         private System.Windows.Forms.ComboBox comboBoxTarget;
         private System.Windows.Forms.CheckBox checkBoxDetailedLog;
