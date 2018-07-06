@@ -40,8 +40,7 @@ namespace postgrepsToSql
             StartReading();
             StartWriting();
         }
-
-       
+ 
         private void StartReading()
         {
             try
@@ -98,107 +97,207 @@ namespace postgrepsToSql
 
         private void ReadDb(string connectionStr)
         {
-            using (var connection = new NpgsqlConnection(connectionStr))
+            if (comboBoxSource.SelectedIndex == 0)
             {
-                connection.Open();
-                if (checkBoxDetailedLog.Checked)
+                using (var connection = new NpgsqlConnection(connectionStr))
                 {
-                     richTextBoxProgress.Text += "Connection is successfull\r\n";
-                }
-                
-
-                var f = false;
-                const int limit = 100;
-                var offset = 0;
-                var isShown = false;
-                var isFinished = false;
-
-                if (checkBoxDetailedLog.Checked)
-                {
-                    richTextBoxProgress.Text += limit + " rows at a time will be read\t\n";
-                }
-                
-                do
-                {
-                    var queryStr = "SELECT * FROM public.\"" + _tableName + "\"" +
-                               " Limit " + limit + " OFFSET " + offset;
+                    connection.Open();
                     if (checkBoxDetailedLog.Checked)
                     {
-                         richTextBoxProgress.Text += queryStr + "\r\n";
-                    }
-                   
-
-                    var cmd = new NpgsqlCommand(queryStr, connection);
-                    using (var dr = cmd.ExecuteReader())
+                         richTextBoxProgress.Text += "Connection is successfull\r\n";
+                    }   
+     
+                    const int limit = 100;
+                    var offset = 0;
+                    var isShown = false;
+                    var isFinished = false;
+    
+                    if (checkBoxDetailedLog.Checked)
                     {
-                        if (!dr.HasRows)
+                        richTextBoxProgress.Text += limit + " rows at a time will be read\t\n";
+                    }
+                    
+                    do
+                    {
+                        var queryStr = "SELECT * FROM public.\"" + _tableName + "\"" +
+                                   " Limit " + limit + " OFFSET " + offset;
+                        if (checkBoxDetailedLog.Checked)
                         {
-                            isFinished = true;
+                             richTextBoxProgress.Text += queryStr + "\r\n";
                         }
-                        while (dr.Read())
+                       
+    
+                        var cmd = new NpgsqlCommand(queryStr, connection);
+                        using (var dr = cmd.ExecuteReader())
                         {
-                            if (!isShown)
+                            if (!dr.HasRows)
                             {
+                                isFinished = true;
+                            }
+                            while (dr.Read())
+                            {
+                                if (!isShown)
+                                {
+                                    for (var i = 0; i < dr.FieldCount; ++i)
+                                    {
+                                        richTextBoxProgress.Text += dr.GetName(i) + "\t";
+                                        _columnNames.Add(dr.GetName(i));
+                                    }
+    
+                                    richTextBoxProgress.Text += "\r\n";
+                                    isShown = true;
+                                }
+    
                                 for (var i = 0; i < dr.FieldCount; ++i)
                                 {
-                                    richTextBoxProgress.Text += dr.GetName(i) + "\t";
-                                    _columnNames.Add(dr.GetName(i));
+                                    _datas.Add(dr[i]);   
                                 }
-
-                                richTextBoxProgress.Text += "\r\n";
-                                isShown = true;
-                            }
-
-                            for (var i = 0; i < dr.FieldCount; ++i)
-                            {
-                                _datas.Add(dr[i]);
-                                if (checkBoxDetailedLog.Checked)
-                                {
-                                    richTextBoxProgress.Text += dr[i] + " is added\r\n";
-                                }
-                                
                             }
                         }
-                    }
-
-                    offset += limit;
-
-                } while (!isFinished);
-
+                        offset += limit;
+                    } while (!isFinished);
+                } 
             }
-        }
+            else
+            {
+                string columnName = "";
+                using (var connection = new SqlConnection(connectionStr))
+                {
+                    connection.Open();
+                    if (checkBoxDetailedLog.Checked)
+                    {
+                         richTextBoxProgress.Text += "Connection is successfull\r\n";
+                    }   
 
+                    var queryColumnName = "SELECT *" + " FROM " + _tableName;
+                                   
+                    var cmd = new SqlCommand(queryColumnName, connection);
+                    using (var dr = cmd.ExecuteReader())
+                    { 
+                        while (dr.Read())
+                        {
+                            for (var i = 0; i < dr.FieldCount; ++i)
+                            {
+                                columnName = dr.GetName(i);
+                            }
+
+                            break;
+                        }
+
+                        if (checkBoxDetailedLog.Checked)
+                        {
+                            richTextBoxProgress.Text += "Ordered by column named " + columnName + "\r\n";
+                        }
+                    }
+                    const int limit = 100;
+                    var offset = 0;
+                    var isFinished = false;
+                    var isShown = false;
+                    
+                    do
+                    {
+                        var queryStr = "SELECT *" + " FROM " + _tableName +
+                                       " ORDER BY " + columnName +
+                                       " OFFSET " + offset + " FETCH NEXT " + limit + " ROWS ONLY;";
+                         
+                        if (checkBoxDetailedLog.Checked)
+                        {
+                             richTextBoxProgress.Text += queryStr + "\r\n";
+                        }
+
+                        using (var dr = cmd.ExecuteReader())
+                        {
+                            if (!dr.HasRows)
+                            {
+                                isFinished = true;
+                            }
+                            while (dr.Read())
+                            {
+                                if (!isShown)
+                                {
+                                    for (var i = 0; i < dr.FieldCount; ++i)
+                                    {
+                                        richTextBoxProgress.Text += dr.GetName(i) + "\t";
+                                        _columnNames.Add(dr.GetName(i));
+                                    }
+    
+                                    richTextBoxProgress.Text += "\r\n";
+                                    isShown = true;
+                                }
+    
+                                for (var i = 0; i < dr.FieldCount; ++i)
+                                {
+                                    _datas.Add(dr[i]);
+                                }
+                            }
+                        }
+                        offset += limit;
+                    } while (!isFinished);
+                }
+            }
+            
+        }
 
         private void GetTableName(string connectionStr)
         {
-            using (var connection = new NpgsqlConnection(connectionStr))
+            if (comboBoxSource.SelectedIndex == 0)
             {
-                connection.Open();
-                richTextBoxProgress.Text += "\r\nGetting table name...\r\n";
-                var queryTableName = "SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'";
-                
-                if (checkBoxDetailedLog.Checked)
+                using (var connection = new NpgsqlConnection(connectionStr))
                 {
-                    richTextBoxProgress.Text += queryTableName + "\r\n";
-                }
-                
-
-                var cmd = new NpgsqlCommand(queryTableName, connection);
-                var dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    _tableName = dr[0].ToString();
+                    connection.Open();
                     if (checkBoxDetailedLog.Checked)
                     {
-                         richTextBoxProgress.Text += "Table name=" + _tableName + "\r\n\r\n";
+                        richTextBoxProgress.Text += "\r\nGetting table name...\r\n";
                     }
-                   
+                    
+                    const string queryTableName = "SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'";
+                
+                    if (checkBoxDetailedLog.Checked)
+                    {
+                        richTextBoxProgress.Text += queryTableName + "\r\n";
+                    }
+                
+                    var cmd = new NpgsqlCommand(queryTableName, connection);
+                    var dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        _tableName = dr[0].ToString();
+                        if (checkBoxDetailedLog.Checked)
+                        {
+                            richTextBoxProgress.Text += "Table name=" + _tableName + "\r\n\r\n";
+                        }
+                    }
                 }
             }
+            else
+            {
+                using (var connection = new SqlConnection(connectionStr))
+                {
+                    connection.Open();
+                    if (checkBoxDetailedLog.Checked)
+                    {
+                        richTextBoxProgress.Text += "\r\nGetting table name...\r\n";
+                    }
+                    
+                    var queryTableName = "USE " + textBoxDatabase.Text + ";  SELECT * FROM sys.Tables;";
+                        
+                    var cmd = new SqlCommand(queryTableName, connection);
+                    var dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        _tableName = dr[0].ToString();
+                        if (checkBoxDetailedLog.Checked)
+                        {
+                            richTextBoxProgress.Text += "Table name=" + _tableName + "\r\n\r\n";
+                        }
+                    }
+                }
+            }
+            
         }
         
-
         private void GetDataTypes(string connectionStr)
         {
             foreach (var t in _columnNames)
@@ -329,7 +428,7 @@ namespace postgrepsToSql
             
         }
 
-        private string GetConnectionStr()
+        private string GetPostgreSqlConnectionStr()
         {
             if (checkBoxDetailedLog.Checked)
             {
@@ -350,7 +449,7 @@ namespace postgrepsToSql
             );
         }
 
-        private string GetConnectionStrSql()
+        private string GetSqlConnectionStr()
         {
             if (checkBoxDetailedLog.Checked)
             {
@@ -371,7 +470,7 @@ namespace postgrepsToSql
                     {
                         richTextBoxProgress.Text += "Source:" + comboBoxSource.Text + " is selected\r\n";
                     }
-                    return GetConnectionStr();
+                    return GetPostgreSqlConnectionStr();
                 case 1:
                     textBoxUserId.Enabled = false;
                     textBoxPassword.Enabled = false;
@@ -380,7 +479,7 @@ namespace postgrepsToSql
                     {
                         richTextBoxProgress.Text += "Source:" + comboBoxSource.Text + " is selected\r\n";
                     }
-                    return GetConnectionStrSql();
+                    return GetSqlConnectionStr();
                 case 2:
                     textBoxUserId.Enabled = false;
                     textBoxPassword.Enabled = false;
@@ -390,7 +489,7 @@ namespace postgrepsToSql
                         richTextBoxProgress.Text += "Source:" + comboBoxSource.Text + " is selected\r\n";
                     }
 
-                    return GetConnectionStrSql();
+                    return GetSqlConnectionStr();
                 case 3:
                     textBoxUserId.Enabled = false;
                     textBoxPassword.Enabled = false;
@@ -400,7 +499,7 @@ namespace postgrepsToSql
                         richTextBoxProgress.Text += "Source:" + comboBoxSource.Text + " is selected\r\n";
                     }
 
-                    return GetConnectionStrSql();
+                    return GetSqlConnectionStr();
                 default:
                     textBoxUserId.Enabled = false;
                     textBoxPassword.Enabled = false;
@@ -424,7 +523,7 @@ namespace postgrepsToSql
                     {
                         richTextBoxProgress.Text += "Target:" + comboBoxTarget.Text + " is selected\r\n";
                     }
-                    return GetConnectionStr();
+                    return GetPostgreSqlConnectionStr();
                 case 1:
                     textBoxTargetUserId.Enabled = false;
                     textBoxTargetPassword.Enabled = false;
@@ -434,7 +533,7 @@ namespace postgrepsToSql
                         richTextBoxProgress.Text += "Target:" + comboBoxTarget.Text + " is selected\r\n";
                     }
 
-                    return GetConnectionStrSql();
+                    return GetSqlConnectionStr();
                 case 2:
                     textBoxTargetUserId.Enabled = false;
                     textBoxTargetPassword.Enabled = false;
@@ -444,7 +543,7 @@ namespace postgrepsToSql
                         richTextBoxProgress.Text += "Target:" + comboBoxTarget.Text + " is selected\r\n";
                     }
 
-                    return GetConnectionStrSql();
+                    return GetSqlConnectionStr();
                 case 3:
                     textBoxTargetUserId.Enabled = false;
                     textBoxTargetPassword.Enabled = false;
@@ -454,7 +553,7 @@ namespace postgrepsToSql
                         richTextBoxProgress.Text += "Target:" + comboBoxTarget.Text + " is selected\r\n";
                     }
 
-                    return GetConnectionStrSql();
+                    return GetSqlConnectionStr();
                 default:
                     textBoxTargetUserId.Enabled = false;
                     textBoxTargetPassword.Enabled = false;
