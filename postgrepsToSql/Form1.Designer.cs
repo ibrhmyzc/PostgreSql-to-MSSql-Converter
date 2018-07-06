@@ -39,18 +39,28 @@
             this.textBoxUserId = new System.Windows.Forms.TextBox();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.buttonExecute = new System.Windows.Forms.Button();
-            this.richTextBoxProgres = new System.Windows.Forms.RichTextBox();
+            this.richTextBoxProgress = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxTargetServer = new System.Windows.Forms.TextBox();
             this.textBoxTargetDatabase = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.comboBoxSource = new System.Windows.Forms.ComboBox();
+            this.comboBoxTarget = new System.Windows.Forms.ComboBox();
+            this.checkBoxDetailedLog = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // labelServer
             // 
             this.labelServer.AutoSize = true;
-            this.labelServer.Location = new System.Drawing.Point(40, 27);
+            this.labelServer.Location = new System.Drawing.Point(40, 54);
             this.labelServer.Name = "labelServer";
             this.labelServer.Size = new System.Drawing.Size(38, 13);
             this.labelServer.TabIndex = 0;
@@ -59,7 +69,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(40, 56);
+            this.label2.Location = new System.Drawing.Point(40, 83);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(26, 13);
             this.label2.TabIndex = 1;
@@ -68,7 +78,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(40, 87);
+            this.label3.Location = new System.Drawing.Point(40, 114);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 2;
@@ -77,7 +87,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(40, 119);
+            this.label4.Location = new System.Drawing.Point(40, 146);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(41, 13);
             this.label4.TabIndex = 3;
@@ -86,7 +96,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(40, 150);
+            this.label5.Location = new System.Drawing.Point(40, 177);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 13);
             this.label5.TabIndex = 4;
@@ -94,7 +104,7 @@
             // 
             // textBoxServer
             // 
-            this.textBoxServer.Location = new System.Drawing.Point(99, 24);
+            this.textBoxServer.Location = new System.Drawing.Point(99, 51);
             this.textBoxServer.Name = "textBoxServer";
             this.textBoxServer.Size = new System.Drawing.Size(100, 20);
             this.textBoxServer.TabIndex = 6;
@@ -102,7 +112,7 @@
             // 
             // textBoxPort
             // 
-            this.textBoxPort.Location = new System.Drawing.Point(99, 56);
+            this.textBoxPort.Location = new System.Drawing.Point(99, 83);
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(100, 20);
             this.textBoxPort.TabIndex = 7;
@@ -110,7 +120,7 @@
             // 
             // textBoxDatabase
             // 
-            this.textBoxDatabase.Location = new System.Drawing.Point(99, 86);
+            this.textBoxDatabase.Location = new System.Drawing.Point(99, 113);
             this.textBoxDatabase.Name = "textBoxDatabase";
             this.textBoxDatabase.Size = new System.Drawing.Size(100, 20);
             this.textBoxDatabase.TabIndex = 8;
@@ -118,7 +128,7 @@
             // 
             // textBoxUserId
             // 
-            this.textBoxUserId.Location = new System.Drawing.Point(99, 116);
+            this.textBoxUserId.Location = new System.Drawing.Point(99, 143);
             this.textBoxUserId.Name = "textBoxUserId";
             this.textBoxUserId.Size = new System.Drawing.Size(100, 20);
             this.textBoxUserId.TabIndex = 9;
@@ -126,7 +136,7 @@
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(99, 146);
+            this.textBoxPassword.Location = new System.Drawing.Point(99, 173);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(100, 20);
@@ -135,26 +145,27 @@
             // 
             // buttonExecute
             // 
-            this.buttonExecute.Location = new System.Drawing.Point(43, 340);
+            this.buttonExecute.BackColor = System.Drawing.SystemColors.Highlight;
+            this.buttonExecute.Location = new System.Drawing.Point(315, 373);
             this.buttonExecute.Name = "buttonExecute";
-            this.buttonExecute.Size = new System.Drawing.Size(156, 49);
+            this.buttonExecute.Size = new System.Drawing.Size(100, 53);
             this.buttonExecute.TabIndex = 12;
             this.buttonExecute.Text = "Go";
-            this.buttonExecute.UseVisualStyleBackColor = true;
+            this.buttonExecute.UseVisualStyleBackColor = false;
             this.buttonExecute.Click += new System.EventHandler(this.button1_Click);
             // 
-            // richTextBoxProgres
+            // richTextBoxProgress
             // 
-            this.richTextBoxProgres.Location = new System.Drawing.Point(244, 24);
-            this.richTextBoxProgres.Name = "richTextBoxProgres";
-            this.richTextBoxProgres.Size = new System.Drawing.Size(489, 365);
-            this.richTextBoxProgres.TabIndex = 13;
-            this.richTextBoxProgres.Text = "";
+            this.richTextBoxProgress.Location = new System.Drawing.Point(43, 211);
+            this.richTextBoxProgress.Name = "richTextBoxProgress";
+            this.richTextBoxProgress.Size = new System.Drawing.Size(372, 156);
+            this.richTextBoxProgress.TabIndex = 13;
+            this.richTextBoxProgress.Text = "";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(40, 252);
+            this.label6.Location = new System.Drawing.Point(256, 55);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(38, 13);
             this.label6.TabIndex = 14;
@@ -163,15 +174,15 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(40, 292);
+            this.label7.Location = new System.Drawing.Point(256, 113);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 13);
             this.label7.TabIndex = 15;
-            this.label7.Text = "DB Name";
+            this.label7.Text = "Database";
             // 
             // textBoxTargetServer
             // 
-            this.textBoxTargetServer.Location = new System.Drawing.Point(99, 249);
+            this.textBoxTargetServer.Location = new System.Drawing.Point(315, 52);
             this.textBoxTargetServer.Name = "textBoxTargetServer";
             this.textBoxTargetServer.Size = new System.Drawing.Size(100, 20);
             this.textBoxTargetServer.TabIndex = 17;
@@ -179,7 +190,7 @@
             // 
             // textBoxTargetDatabase
             // 
-            this.textBoxTargetDatabase.Location = new System.Drawing.Point(99, 289);
+            this.textBoxTargetDatabase.Location = new System.Drawing.Point(315, 111);
             this.textBoxTargetDatabase.Name = "textBoxTargetDatabase";
             this.textBoxTargetDatabase.Size = new System.Drawing.Size(100, 20);
             this.textBoxTargetDatabase.TabIndex = 18;
@@ -188,23 +199,130 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(96, 215);
+            this.label8.Location = new System.Drawing.Point(256, 18);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(51, 13);
             this.label8.TabIndex = 19;
             this.label8.Text = "TARGET";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(40, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 13);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "SOURCE";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(256, 83);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(26, 13);
+            this.label9.TabIndex = 21;
+            this.label9.Text = "Port";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(256, 146);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(41, 13);
+            this.label10.TabIndex = 22;
+            this.label10.Text = "User Id";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(256, 177);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(53, 13);
+            this.label11.TabIndex = 23;
+            this.label11.Text = "Password";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(315, 80);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 24;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(315, 143);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 25;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(315, 173);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(100, 20);
+            this.textBox3.TabIndex = 26;
+            // 
+            // comboBoxSource
+            // 
+            this.comboBoxSource.FormattingEnabled = true;
+            this.comboBoxSource.Items.AddRange(new object[] {
+            "PostgreSql",
+            "MSSql",
+            "Sql",
+            "MySql"});
+            this.comboBoxSource.Location = new System.Drawing.Point(98, 15);
+            this.comboBoxSource.Name = "comboBoxSource";
+            this.comboBoxSource.Size = new System.Drawing.Size(101, 21);
+            this.comboBoxSource.TabIndex = 27;
+            this.comboBoxSource.SelectedIndex = 0;
+            this.comboBoxSource.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // comboBoxTarget
+            // 
+            this.comboBoxTarget.FormattingEnabled = true;
+            this.comboBoxTarget.Items.AddRange(new object[] {
+            "PostgreSql",
+            "MSSql",
+            "Sql",
+            "MySql"});
+            this.comboBoxTarget.SelectedIndex = 1;
+            this.comboBoxTarget.Location = new System.Drawing.Point(315, 12);
+            this.comboBoxTarget.Name = "comboBoxTarget";
+            this.comboBoxTarget.Size = new System.Drawing.Size(100, 21);
+            this.comboBoxTarget.TabIndex = 28;
+            // 
+            // checkBoxDetailedLog
+            // 
+            this.checkBoxDetailedLog.AutoSize = true;
+            this.checkBoxDetailedLog.Location = new System.Drawing.Point(43, 382);
+            this.checkBoxDetailedLog.Name = "checkBoxDetailedLog";
+            this.checkBoxDetailedLog.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxDetailedLog.TabIndex = 29;
+            this.checkBoxDetailedLog.UseVisualStyleBackColor = true;
+            this.checkBoxDetailedLog.Text =
+                "Would you like to see detailed logs?\r\nIt will significantly slow down the progress";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(499, 448);
+            this.Controls.Add(this.checkBoxDetailedLog);
+            this.Controls.Add(this.comboBoxTarget);
+            this.Controls.Add(this.comboBoxSource);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBoxTargetDatabase);
             this.Controls.Add(this.textBoxTargetServer);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.richTextBoxProgres);
+            this.Controls.Add(this.richTextBoxProgress);
             this.Controls.Add(this.buttonExecute);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.textBoxUserId);
@@ -236,12 +354,22 @@
         private System.Windows.Forms.TextBox textBoxUserId;
         private System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.Button buttonExecute;
-        private System.Windows.Forms.RichTextBox richTextBoxProgres;
+        private System.Windows.Forms.RichTextBox richTextBoxProgress;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBoxTargetServer;
         private System.Windows.Forms.TextBox textBoxTargetDatabase;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.ComboBox comboBoxSource;
+        private System.Windows.Forms.ComboBox comboBoxTarget;
+        private System.Windows.Forms.CheckBox checkBoxDetailedLog;
     }
 }
 
