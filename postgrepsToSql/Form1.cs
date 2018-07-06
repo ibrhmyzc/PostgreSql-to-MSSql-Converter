@@ -373,12 +373,18 @@ namespace postgrepsToSql
                     }
                     return GetConnectionStr();
                 case 1:
+                    textBoxUserId.Enabled = false;
+                    textBoxPassword.Enabled = false;
+                    textBoxPort.Enabled = false;
                     if (checkBoxDetailedLog.Checked)
                     {
                         richTextBoxProgress.Text += "Source:" + comboBoxSource.Text + " is selected\r\n";
                     }
                     return GetConnectionStrSql();
                 case 2:
+                    textBoxUserId.Enabled = false;
+                    textBoxPassword.Enabled = false;
+                    textBoxPort.Enabled = false;
                     if (checkBoxDetailedLog.Checked)
                     {
                         richTextBoxProgress.Text += "Source:" + comboBoxSource.Text + " is selected\r\n";
@@ -386,6 +392,9 @@ namespace postgrepsToSql
 
                     return GetConnectionStrSql();
                 case 3:
+                    textBoxUserId.Enabled = false;
+                    textBoxPassword.Enabled = false;
+                    textBoxPort.Enabled = false;
                     if (checkBoxDetailedLog.Checked)
                     {
                         richTextBoxProgress.Text += "Source:" + comboBoxSource.Text + " is selected\r\n";
@@ -393,6 +402,9 @@ namespace postgrepsToSql
 
                     return GetConnectionStrSql();
                 default:
+                    textBoxUserId.Enabled = false;
+                    textBoxPassword.Enabled = false;
+                    textBoxPort.Enabled = false;
                     if (checkBoxDetailedLog.Checked)
                     {
                         richTextBoxProgress.Text += "Source:Default-" + " is selected\r\n";
@@ -414,6 +426,9 @@ namespace postgrepsToSql
                     }
                     return GetConnectionStr();
                 case 1:
+                    textBoxTargetUserId.Enabled = false;
+                    textBoxTargetPassword.Enabled = false;
+                    textBoxTargetPort.Enabled = false;
                     if (checkBoxDetailedLog.Checked)
                     {
                         richTextBoxProgress.Text += "Target:" + comboBoxTarget.Text + " is selected\r\n";
@@ -421,6 +436,9 @@ namespace postgrepsToSql
 
                     return GetConnectionStrSql();
                 case 2:
+                    textBoxTargetUserId.Enabled = false;
+                    textBoxTargetPassword.Enabled = false;
+                    textBoxTargetPort.Enabled = false;
                     if (checkBoxDetailedLog.Checked)
                     {
                         richTextBoxProgress.Text += "Target:" + comboBoxTarget.Text + " is selected\r\n";
@@ -428,6 +446,9 @@ namespace postgrepsToSql
 
                     return GetConnectionStrSql();
                 case 3:
+                    textBoxTargetUserId.Enabled = false;
+                    textBoxTargetPassword.Enabled = false;
+                    textBoxTargetPort.Enabled = false;
                     if (checkBoxDetailedLog.Checked)
                     {
                         richTextBoxProgress.Text += "Target:" + comboBoxTarget.Text + " is selected\r\n";
@@ -435,6 +456,9 @@ namespace postgrepsToSql
 
                     return GetConnectionStrSql();
                 default:
+                    textBoxTargetUserId.Enabled = false;
+                    textBoxTargetPassword.Enabled = false;
+                    textBoxTargetPort.Enabled = false;
                     if (checkBoxDetailedLog.Checked)
                     {
                         richTextBoxProgress.Text += "Target:Default-" +  " is selected\r\n";
@@ -442,18 +466,70 @@ namespace postgrepsToSql
                     throw new ArgumentNullException("No Database is selected");
             }
             
-
-           
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+            switch (comboBoxSource.SelectedIndex)
+            {
+                case 0:
+                    textBoxUserId.Enabled = true;
+                    textBoxPassword.Enabled = true;
+                    textBoxPort.Enabled = true;
+                    break;
+                case 1:
+                    textBoxUserId.Enabled = false;
+                    textBoxPassword.Enabled = false;
+                    textBoxPort.Enabled = false;
+                    break;
+                case 2:
+                    textBoxUserId.Enabled = false;
+                    textBoxPassword.Enabled = false;
+                    textBoxPort.Enabled = false;
+                    break;
+                case 3:
+                    textBoxUserId.Enabled = false;
+                    textBoxPassword.Enabled = false;
+                    textBoxPort.Enabled = false;
+                    break;
+                default:
+                    textBoxUserId.Enabled = false;
+                    textBoxPassword.Enabled = false;
+                    textBoxPort.Enabled = false;
+                    break;
+            }
         }
 
         private void comboBoxTarget_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+           switch (comboBoxTarget.SelectedIndex)
+            {
+                case 0:
+                    textBoxTargetUserId.Enabled = true;
+                    textBoxTargetPassword.Enabled = true;
+                    textBoxTargetPort.Enabled = true;
+                    break;
+                case 1:
+                    textBoxTargetUserId.Enabled = false;
+                    textBoxTargetPassword.Enabled = false;
+                    textBoxTargetPort.Enabled = false;
+                    break;
+                case 2:
+                    textBoxTargetUserId.Enabled = false;
+                    textBoxTargetPassword.Enabled = false;
+                    textBoxTargetPort.Enabled = false;
+                    break;
+                case 3:
+                    textBoxTargetUserId.Enabled = false;
+                    textBoxTargetPassword.Enabled = false;
+                    textBoxTargetPort.Enabled = false;
+                    break;
+                default:
+                    textBoxTargetUserId.Enabled = false;
+                    textBoxTargetPassword.Enabled = false;
+                    textBoxTargetPort.Enabled = false;
+                    break;
+            }
         }
     }
 }
