@@ -124,7 +124,7 @@
             this.textBoxDatabase.Name = "textBoxDatabase";
             this.textBoxDatabase.Size = new System.Drawing.Size(100, 20);
             this.textBoxDatabase.TabIndex = 8;
-            this.textBoxDatabase.Text = "postgres";
+            this.textBoxDatabase.Text = "dvdrental";
             // 
             // textBoxUserId
             // 
@@ -186,7 +186,7 @@
             this.textBoxTargetServer.Name = "textBoxTargetServer";
             this.textBoxTargetServer.Size = new System.Drawing.Size(100, 20);
             this.textBoxTargetServer.TabIndex = 17;
-            this.textBoxTargetServer.Text = "GEBZEHAVUZ11";
+            this.textBoxTargetServer.Text = "JAG-FRIA\\SQLEXPRESS";
             // 
             // textBoxTargetDatabase
             // 

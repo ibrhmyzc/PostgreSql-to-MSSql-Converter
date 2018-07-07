@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -20,7 +21,7 @@ namespace postgrepsToSql
         private ArrayList _columnNames = new ArrayList();
         private ArrayList _dataTypes = new ArrayList();
         private ArrayList _datas = new ArrayList();
-        private string _tableName;
+        private string _tableName = "customer";
         private int _numberOfColumns = 0;
         private int _numberOfRows = 0;
 
@@ -52,7 +53,7 @@ namespace postgrepsToSql
                 }
 
                 // gets table name
-                GetTableName(connectionStr);
+                //GetTableName(connectionStr);
 
                 // reads all data
                 ReadDb(connectionStr);
@@ -267,6 +268,8 @@ namespace postgrepsToSql
                         {
                             richTextBoxProgress.Text += "Table name=" + _tableName + "\r\n\r\n";
                         }
+
+                        break;
                     }
                 }
             }
@@ -292,6 +295,8 @@ namespace postgrepsToSql
                         {
                             richTextBoxProgress.Text += "Table name=" + _tableName + "\r\n\r\n";
                         }
+
+                        break;
                     }
                 }
             }
@@ -337,9 +342,8 @@ namespace postgrepsToSql
         }
 
         private void Migrate(string connectionStrSql)
-        {      
-
-            //richTextBoxProgres.Text += connectionStrSql + "\r\n\r\n";
+        {
+            HandleDifferences();
 
             using (var connection = new SqlConnection(connectionStrSql))
             {
@@ -356,11 +360,17 @@ namespace postgrepsToSql
                     createTable += _columnNames[i] + " " + _dataTypes[i] + ", ";
                 }
                 createTable += ");";
+
+                if (checkBoxDetailedLog.Checked)
+                {
+                    richTextBoxProgress.Text += createTable + "\r\n";
+                }
                 
                 var cmd = new SqlCommand(createTable, connection);
                 try
                 {
                     cmd.ExecuteNonQuery();
+                    richTextBoxProgress.Text += createTable + "\r\n";
                 }
                 catch (Exception ex)
                 {
@@ -378,19 +388,13 @@ namespace postgrepsToSql
 
                 for (var i = 0; i < _numberOfRows; ++i)
                 {
-                    var insertData = "INSERT INTO " + _tableName + " (";
-                    for (var j = 0; j < _numberOfColumns; ++j)
-                    {
-                        if (j + 1 != _numberOfColumns)
-                            insertData += _columnNames[j] + ", ";
-                        else
-                            insertData += _columnNames[j];
-                    }
+                    var insertData = "INSERT INTO " + _tableName;
+                   
 
-                    insertData += ") VALUES (";
+                    insertData += " VALUES (";
                     for (var j = 0; j < _numberOfColumns; ++j)
                     {
-                        if ((string)_dataTypes[j] != "integer")
+                        if (IsQuote((string)_dataTypes[j]))
                         {
                             if (j + 1 != _numberOfColumns)
                                 insertData += "'" + _datas[i * _numberOfColumns + j] + "',";
@@ -413,10 +417,17 @@ namespace postgrepsToSql
                     }
                    
                     var cmd = new SqlCommand(insertData, connection);
-                    cmd.ExecuteNonQuery();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch(Exception ex)
+                    {
+                        richTextBoxProgress.Text += "migration exe problem\r\n";
+                    }
+                    
                 }
             }
-
 
             if (checkBoxDetailedLog.Checked)
             {
@@ -424,8 +435,58 @@ namespace postgrepsToSql
                
                richTextBoxProgress.Text += _datas.Count / _columnNames.Count + " rows and " +
                                            _columnNames.Count + " columns have been copied";
+            } 
+        }
+
+        private bool IsQuote(string typeStr)
+        {
+            switch (typeStr)
+            {
+                case "[PK] integer":
+                case "smallint":
+                case "integer":
+                case "int":
+                case "BIT":
+                    return false;
+                default:
+                    return true;
             }
-            
+        }
+
+        private void HandleDifferences()
+        {
+            for (var j = 0; j < _numberOfRows; ++j)
+            {
+                for (var i = 0; i < _numberOfColumns; ++i)
+                {
+                  
+                    // casting from string to integer representation of boolean values
+                    if (_datas[j * _numberOfColumns + i].ToString() == "True")
+                    {
+                        _datas[j * _numberOfColumns + i] = "1";
+                    }
+                    else if (_datas[j * _numberOfColumns + i].ToString() == "False")
+                    {
+                        _datas[j * _numberOfColumns + i] = "0";
+                    }
+                }
+            }
+
+            for (var i = 0; i < _numberOfColumns; ++i)
+            {
+                // ms sql does not have boolean type. instead, it has BIT
+                if (_dataTypes[i].ToString() == "boolean")
+                {
+                    _dataTypes[i] = "BIT";
+                }
+                else if (_dataTypes[i].ToString() == "timestamp without time zone")
+                {
+                    _dataTypes[i] = "datetime2";
+                }else if (_dataTypes[i].ToString().IndexOf("char") >= 0)
+                {
+                    _dataTypes[i] = "text";
+                }
+            }
         }
 
         private string GetPostgreSqlConnectionStr()
