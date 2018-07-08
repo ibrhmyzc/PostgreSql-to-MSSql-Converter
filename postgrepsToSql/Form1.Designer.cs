@@ -55,6 +55,10 @@
             this.comboBoxSource = new System.Windows.Forms.ComboBox();
             this.comboBoxTarget = new System.Windows.Forms.ComboBox();
             this.checkBoxDetailedLog = new System.Windows.Forms.CheckBox();
+            this.labelSourceTableName = new System.Windows.Forms.Label();
+            this.labelTargetTableName = new System.Windows.Forms.Label();
+            this.textBoxTargetTable = new System.Windows.Forms.TextBox();
+            this.textBoxSourceTable = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // labelServer
@@ -156,9 +160,9 @@
             // 
             // richTextBoxProgress
             // 
-            this.richTextBoxProgress.Location = new System.Drawing.Point(43, 211);
+            this.richTextBoxProgress.Location = new System.Drawing.Point(43, 228);
             this.richTextBoxProgress.Name = "richTextBoxProgress";
-            this.richTextBoxProgress.Size = new System.Drawing.Size(372, 156);
+            this.richTextBoxProgress.Size = new System.Drawing.Size(372, 139);
             this.richTextBoxProgress.TabIndex = 13;
             this.richTextBoxProgress.Text = "";
             // 
@@ -267,9 +271,7 @@
             this.comboBoxSource.FormattingEnabled = true;
             this.comboBoxSource.Items.AddRange(new object[] {
             "PostgreSql",
-            "MSSql",
-            "Sql",
-            "MySql"});
+            "MSSql"});
             this.comboBoxSource.Location = new System.Drawing.Point(98, 15);
             this.comboBoxSource.Name = "comboBoxSource";
             this.comboBoxSource.Size = new System.Drawing.Size(101, 21);
@@ -281,9 +283,7 @@
             this.comboBoxTarget.FormattingEnabled = true;
             this.comboBoxTarget.Items.AddRange(new object[] {
             "PostgreSql",
-            "MSSql",
-            "Sql",
-            "MySql"});
+            "MSSql"});
             this.comboBoxTarget.Location = new System.Drawing.Point(315, 12);
             this.comboBoxTarget.Name = "comboBoxTarget";
             this.comboBoxTarget.Size = new System.Drawing.Size(100, 21);
@@ -301,11 +301,48 @@
     "s";
             this.checkBoxDetailedLog.UseVisualStyleBackColor = true;
             // 
+            // labelSourceTableName
+            // 
+            this.labelSourceTableName.AutoSize = true;
+            this.labelSourceTableName.Location = new System.Drawing.Point(43, 209);
+            this.labelSourceTableName.Name = "labelSourceTableName";
+            this.labelSourceTableName.Size = new System.Drawing.Size(34, 13);
+            this.labelSourceTableName.TabIndex = 30;
+            this.labelSourceTableName.Text = "Table";
+            // 
+            // labelTargetTableName
+            // 
+            this.labelTargetTableName.AutoSize = true;
+            this.labelTargetTableName.Location = new System.Drawing.Point(259, 209);
+            this.labelTargetTableName.Name = "labelTargetTableName";
+            this.labelTargetTableName.Size = new System.Drawing.Size(34, 13);
+            this.labelTargetTableName.TabIndex = 31;
+            this.labelTargetTableName.Text = "Table";
+            // 
+            // textBoxTargetTable
+            // 
+            this.textBoxTargetTable.Location = new System.Drawing.Point(315, 206);
+            this.textBoxTargetTable.Name = "textBoxTargetTable";
+            this.textBoxTargetTable.Size = new System.Drawing.Size(100, 20);
+            this.textBoxTargetTable.TabIndex = 32;
+            // 
+            // textBoxSourceTable
+            // 
+            this.textBoxSourceTable.Location = new System.Drawing.Point(98, 206);
+            this.textBoxSourceTable.Name = "textBoxSourceTable";
+            this.textBoxSourceTable.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSourceTable.TabIndex = 33;
+            this.textBoxSourceTable.Text = "actor";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(463, 430);
+            this.Controls.Add(this.textBoxSourceTable);
+            this.Controls.Add(this.textBoxTargetTable);
+            this.Controls.Add(this.labelTargetTableName);
+            this.Controls.Add(this.labelSourceTableName);
             this.Controls.Add(this.checkBoxDetailedLog);
             this.Controls.Add(this.comboBoxTarget);
             this.Controls.Add(this.comboBoxSource);
@@ -369,6 +406,10 @@
         private System.Windows.Forms.ComboBox comboBoxSource;
         private System.Windows.Forms.ComboBox comboBoxTarget;
         private System.Windows.Forms.CheckBox checkBoxDetailedLog;
+        private System.Windows.Forms.Label labelSourceTableName;
+        private System.Windows.Forms.Label labelTargetTableName;
+        private System.Windows.Forms.TextBox textBoxTargetTable;
+        private System.Windows.Forms.TextBox textBoxSourceTable;
     }
 }
 
