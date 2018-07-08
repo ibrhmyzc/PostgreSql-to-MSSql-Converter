@@ -21,24 +21,27 @@ namespace postgrepsToSql
         private ArrayList _columnNames = new ArrayList();
         private ArrayList _dataTypes = new ArrayList();
         private ArrayList _datas = new ArrayList();
-        private string _tableNameSource = "customer";
+        private string _tableNameSource = "";
         private string _tableNameTarget = "";
-        private ArrayList _tableNames = new ArrayList();
         private int _numberOfColumns = 0;
         private int _numberOfRows = 0;
         private int _offset = 0;
         private const int Limit = 50;
         
         
-        
+        /**
+         * Constructor for inializeing visual components and textes they store
+         */
         public Form1()
         {
             InitializeComponent();
             comboBoxSource.SelectedIndex = 0;
             comboBoxTarget.SelectedIndex = 1;
-            _tableNameSource = textBoxSourceTable.Text;
         }
 
+        /**
+         * It blocks entering inputs form the user and start reading source databases
+         */
         private void Button1_Click(object sender, EventArgs e)
         {
             if (checkBoxDetailedLog.Checked)
@@ -50,6 +53,10 @@ namespace postgrepsToSql
             StartReading();
         }
  
+        /**
+         * Gets connection string of choice
+         * Reads source database and store datas
+         */
         private void StartReading()
         {
             try
@@ -58,7 +65,8 @@ namespace postgrepsToSql
                 if (checkBoxDetailedLog.Checked)
                 {
                     richTextBoxProgress.Text += "StartReading = " + connectionStr + "\r\n";
-                }  
+                }
+                _tableNameSource = textBoxSourceTable.Text;
                 ReadDb(connectionStr);
             }
             catch (NullReferenceException ex)
@@ -72,6 +80,9 @@ namespace postgrepsToSql
            
         }
 
+        /**
+         * Get table names from a given database
+         */
         private void GetTableName(string connectionStr)
         {
             if (comboBoxSource.SelectedIndex == 0)
@@ -134,6 +145,13 @@ namespace postgrepsToSql
             }
         }
 
+        /**
+         * Opens database
+         * Reads data as many as limit sets
+         * Gets column types and stores them in an arraylist
+         * Stores number of rows and columns
+         * Migrates datas to target database
+         */
         private void ReadDb(string connectionStr)
         {
             if (comboBoxSource.SelectedIndex == 0)
@@ -284,6 +302,11 @@ namespace postgrepsToSql
             
         }
 
+        /**
+         * First it handles differences between data types of target and source databases
+         * Creates a table in target database and inserts
+         * Checks if datas need quotes around them
+         */
         private void Migrate()
         {
             // POSTGRESQL to MSSQL
@@ -386,6 +409,9 @@ namespace postgrepsToSql
             }        
         }
 
+        /**
+         * Opens source databases and runs a query for getting data types which the columns store
+         */
         private void GetDataTypes(string connectionStr)
         {
             foreach (var t in _columnNames)
@@ -427,7 +453,10 @@ namespace postgrepsToSql
             }
             _numberOfColumns = _dataTypes.Count;
         }
-
+        
+        /**
+         * Already selected types will return false for quotes
+         */
         private bool IsQuote(string typeStr)
         {
             switch (typeStr)
@@ -442,7 +471,12 @@ namespace postgrepsToSql
                     return true;
             }
         }
-
+        
+        /**
+         * There are some differences between source and target data bases
+         * Some data types are represented different
+         * Manually its being handled by this function and being converted to convenient type
+         */
         private void HandleDifferences()
         {
             for (var j = 0; j < _numberOfRows; ++j)
@@ -478,7 +512,9 @@ namespace postgrepsToSql
                 }
             }
         }
-
+        /**
+         * Builds s connection string for postgresql server
+         */
         private string GetPostgreSqlConnectionStr()
         {
             if (checkBoxDetailedLog.Checked)
@@ -499,7 +535,9 @@ namespace postgrepsToSql
                                  ";Integrated Security=true;"
             );
         }
-
+        /**
+         * Builds a connection string for connecting ms sql server
+         */
         private string GetSqlConnectionStr()
         {
             if (checkBoxDetailedLog.Checked)
@@ -511,7 +549,10 @@ namespace postgrepsToSql
                 ";Initial Catalog=" + textBoxTargetDatabase.Text +
                 ";Integrated Security=SSPI");
         }
-
+        
+        /**
+         * Enable or disable textboxes corersponding to the database type
+         */
         private string GetConnectionStrFromSource()
         { 
             switch (comboBoxSource.SelectedIndex)
@@ -564,6 +605,9 @@ namespace postgrepsToSql
             
         }
 
+        /**
+         * Enable or disable textboxes corersponding to the database type
+         */
         private string GetConnectionStrFromTarget()
         {
             
@@ -590,6 +634,9 @@ namespace postgrepsToSql
             
         }
 
+        /**
+         * Enable or disable textboxes corersponding to the database type
+         */
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (comboBoxSource.SelectedIndex)
@@ -621,7 +668,10 @@ namespace postgrepsToSql
                     break;
             }
         }
-
+        
+        /**
+         * Enable or disable textboxes corersponding to the database type
+         */
         private void comboBoxTarget_SelectedIndexChanged(object sender, EventArgs e)
         {
            switch (comboBoxTarget.SelectedIndex)
