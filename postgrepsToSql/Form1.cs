@@ -369,19 +369,22 @@ namespace postgrepsToSql
                        var insertData = "INSERT INTO " + _tableNameSource + " VALUES ( ";
                        for (var j = 0; j < _numberOfColumns; ++j)
                        {
+                           var dat = _datas[i * _numberOfColumns + j].ToString();
+                           dat = dat.Replace("'", "''");
+                           
                            if (IsQuote((string)_dataTypes[j]))
                            {
                                if (j + 1 != _numberOfColumns)
-                                   insertData += "'" + _datas[i * _numberOfColumns + j] + "',";
+                                   insertData += "'" + dat + "',";
                                else
-                                   insertData += "'" + _datas[i * _numberOfColumns + j] + "'";
+                                   insertData += "'" + dat + "'";
                            }
                            else
                            {
                                if (j + 1 != _numberOfColumns)
-                                   insertData += _datas[i * _numberOfColumns + j] + ",";
+                                   insertData += dat + ",";
                                else
-                                   insertData += _datas[i * _numberOfColumns + j];
+                                   insertData += dat;
                            }
                        }
                        insertData += " )";
