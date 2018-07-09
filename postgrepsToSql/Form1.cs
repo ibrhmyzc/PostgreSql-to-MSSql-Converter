@@ -26,7 +26,7 @@ namespace postgrepsToSql
         private int _numberOfColumns = 0;
         private int _numberOfRows = 0;
         private int _offset = 0;
-        private const int Limit = 50;
+        private const int Limit = 50000;
         
         
         /**
@@ -466,6 +466,9 @@ namespace postgrepsToSql
                 case "integer":
                 case "int":
                 case "BIT":
+                case "BIGINT":
+                case "REAL":
+                case "DOUBLE PRECISION":
                     return false;
                 default:
                     return true;
