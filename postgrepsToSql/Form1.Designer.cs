@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.buttonExecute = new System.Windows.Forms.Button();
-            this.richTextBoxProgress = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxTargetServer = new System.Windows.Forms.TextBox();
@@ -42,7 +41,6 @@
             this.textBoxTargetUserId = new System.Windows.Forms.TextBox();
             this.textBoxTargetPassword = new System.Windows.Forms.TextBox();
             this.comboBoxTarget = new System.Windows.Forms.ComboBox();
-            this.checkBoxDetailedLog = new System.Windows.Forms.CheckBox();
             this.labelTargetTableName = new System.Windows.Forms.Label();
             this.textBoxTargetTable = new System.Windows.Forms.TextBox();
             this.labelServer = new System.Windows.Forms.Label();
@@ -61,6 +59,7 @@
             this.textBoxSourceTable = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -68,21 +67,13 @@
             // buttonExecute
             // 
             this.buttonExecute.BackColor = System.Drawing.SystemColors.Highlight;
-            this.buttonExecute.Location = new System.Drawing.Point(304, 377);
+            this.buttonExecute.Location = new System.Drawing.Point(315, 311);
             this.buttonExecute.Name = "buttonExecute";
             this.buttonExecute.Size = new System.Drawing.Size(100, 39);
             this.buttonExecute.TabIndex = 12;
             this.buttonExecute.Text = "Go";
             this.buttonExecute.UseVisualStyleBackColor = false;
             this.buttonExecute.Click += new System.EventHandler(this.Button1_Click);
-            // 
-            // richTextBoxProgress
-            // 
-            this.richTextBoxProgress.Location = new System.Drawing.Point(24, 256);
-            this.richTextBoxProgress.Name = "richTextBoxProgress";
-            this.richTextBoxProgress.Size = new System.Drawing.Size(391, 111);
-            this.richTextBoxProgress.TabIndex = 13;
-            this.richTextBoxProgress.Text = "";
             // 
             // label6
             // 
@@ -115,6 +106,7 @@
             this.textBoxTargetDatabase.Name = "textBoxTargetDatabase";
             this.textBoxTargetDatabase.Size = new System.Drawing.Size(100, 20);
             this.textBoxTargetDatabase.TabIndex = 18;
+            this.textBoxTargetDatabase.Text = "STAJDB";
             // 
             // label8
             // 
@@ -170,6 +162,7 @@
             // 
             this.textBoxTargetPassword.Location = new System.Drawing.Point(71, 175);
             this.textBoxTargetPassword.Name = "textBoxTargetPassword";
+            this.textBoxTargetPassword.PasswordChar = '*';
             this.textBoxTargetPassword.Size = new System.Drawing.Size(100, 20);
             this.textBoxTargetPassword.TabIndex = 26;
             // 
@@ -184,17 +177,6 @@
             this.comboBoxTarget.Size = new System.Drawing.Size(100, 21);
             this.comboBoxTarget.TabIndex = 28;
             this.comboBoxTarget.SelectedIndexChanged += new System.EventHandler(this.comboBoxTarget_SelectedIndexChanged);
-            // 
-            // checkBoxDetailedLog
-            // 
-            this.checkBoxDetailedLog.AutoSize = true;
-            this.checkBoxDetailedLog.Location = new System.Drawing.Point(24, 382);
-            this.checkBoxDetailedLog.Name = "checkBoxDetailedLog";
-            this.checkBoxDetailedLog.Size = new System.Drawing.Size(220, 30);
-            this.checkBoxDetailedLog.TabIndex = 29;
-            this.checkBoxDetailedLog.Text = "Would you like to see detailed logs?\r\nIt will significantly slow down the progres" +
-    "s";
-            this.checkBoxDetailedLog.UseVisualStyleBackColor = true;
             // 
             // labelTargetTableName
             // 
@@ -263,6 +245,7 @@
             this.textBoxServer.Name = "textBoxServer";
             this.textBoxServer.Size = new System.Drawing.Size(100, 20);
             this.textBoxServer.TabIndex = 6;
+            this.textBoxServer.Text = "127.0.0.1";
             // 
             // textBoxPort
             // 
@@ -270,6 +253,7 @@
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(100, 20);
             this.textBoxPort.TabIndex = 7;
+            this.textBoxPort.Text = "5432";
             // 
             // textBoxDatabase
             // 
@@ -277,6 +261,7 @@
             this.textBoxDatabase.Name = "textBoxDatabase";
             this.textBoxDatabase.Size = new System.Drawing.Size(100, 20);
             this.textBoxDatabase.TabIndex = 8;
+            this.textBoxDatabase.Text = "dvdrental";
             // 
             // textBoxUserId
             // 
@@ -329,6 +314,7 @@
             this.textBoxSourceTable.Name = "textBoxSourceTable";
             this.textBoxSourceTable.Size = new System.Drawing.Size(100, 20);
             this.textBoxSourceTable.TabIndex = 33;
+            this.textBoxSourceTable.Text = "actor";
             // 
             // panel1
             // 
@@ -375,16 +361,23 @@
             this.panel2.Size = new System.Drawing.Size(186, 237);
             this.panel2.TabIndex = 35;
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(24, 268);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(391, 23);
+            this.progressBar.TabIndex = 36;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(443, 430);
+            this.ClientSize = new System.Drawing.Size(428, 362);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.checkBoxDetailedLog);
-            this.Controls.Add(this.richTextBoxProgress);
             this.Controls.Add(this.buttonExecute);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.Text = "Postgre to Sql";
             this.panel1.ResumeLayout(false);
@@ -392,13 +385,11 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Button buttonExecute;
-        private System.Windows.Forms.RichTextBox richTextBoxProgress;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBoxTargetServer;
@@ -411,7 +402,6 @@
         private System.Windows.Forms.TextBox textBoxTargetUserId;
         private System.Windows.Forms.TextBox textBoxTargetPassword;
         private System.Windows.Forms.ComboBox comboBoxTarget;
-        private System.Windows.Forms.CheckBox checkBoxDetailedLog;
         private System.Windows.Forms.Label labelTargetTableName;
         private System.Windows.Forms.TextBox textBoxTargetTable;
         private System.Windows.Forms.Label labelServer;
@@ -430,6 +420,7 @@
         private System.Windows.Forms.TextBox textBoxSourceTable;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
 
